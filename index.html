@@ -1,264 +1,826 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jeevashrey Animal Welfare Shelter (JAWS Igatpuri)</title>
-<style>
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background-color: black;
-  color: #fff;
-  scroll-behavior: smooth;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jeevashrey Animal Welfare Shelter (JAWS Igatpuri)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-header {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  background: rgba(0, 0, 0, 0.9);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 40px;
-  z-index: 1000;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-header img {
-  height: 60px;
-}
+    body {
+      background-color: #000;
+      color: #ffffff;
+      font-family: "Poppins", sans-serif;
+      overflow-x: hidden;
+    }
 
-nav a {
-  color: #ff6600;
-  text-decoration: none;
-  margin: 0 18px;
-  font-weight: bold;
-  font-size: 1.1rem;
-  transition: color 0.3s ease;
-}
+    /* Animated gradient background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(255, 102, 0, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(0, 150, 255, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 102, 0, 0.03) 0%, transparent 70%);
+      z-index: -1;
+      animation: gradientShift 15s ease infinite;
+    }
 
-nav a:hover {
-  color: #ffa64d;
-}
+    @keyframes gradientShift {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
 
-section {
-  padding: 100px 20px 80px;
-  position: relative;
-  text-align: center;
-}
+    /* Header */
+    header {
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 15px 50px;
+      border-bottom: 1px solid rgba(255, 102, 0, 0.3);
+      transition: all 0.3s ease;
+    }
 
-.background {
-  background-size: cover;
-  background-position: center;
-  position: relative;
-}
+    header.scrolled {
+      padding: 10px 50px;
+      background: rgba(0, 0, 0, 0.95);
+      border-bottom: 2px solid rgba(255, 102, 0, 0.5);
+    }
 
-.background::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 0;
-}
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-section > * {
-  position: relative;
-  z-index: 1;
-}
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
 
-h1 {
-  font-size: 2.8rem;
-  color: #ff6600;
-  margin-top: 60px;
-}
+    .logo-container img {
+      height: 60px;
+      filter: drop-shadow(0 0 10px rgba(255, 102, 0, 0.3));
+      transition: transform 0.3s ease;
+    }
 
-h2 {
-  color: #ffa64d;
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
+    .logo-container img:hover {
+      transform: scale(1.05);
+    }
 
-p {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  max-width: 800px;
-  margin: 10px auto;
-}
+    .logo-text {
+      font-size: 1.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff6600 0%, #ffb347 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-.gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
+    nav {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
 
-.gallery img {
-  width: 280px;
-  height: 280px;
-  object-fit: cover;
-  border-radius: 12px;
-  transition: transform 0.3s ease;
-}
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      position: relative;
+      padding: 5px 10px;
+      transition: all 0.3s ease;
+    }
 
-.gallery img:hover {
-  transform: scale(1.05);
-}
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #ff6600, #0096ff);
+      transition: width 0.3s ease;
+    }
 
-iframe {
-  border-radius: 12px;
-  width: 100%;
-  max-width: 500px;
-  height: 280px;
-  margin: 10px;
-}
+    nav a:hover {
+      color: #ff6600;
+    }
 
-.video-section {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
+    nav a:hover::after {
+      width: 100%;
+    }
 
-button {
-  background: #ff6600;
-  color: white;
-  border: none;
-  padding: 12px 26px;
-  font-size: 1.2rem;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
+    /* Hero Section */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 20px 60px;
+      position: relative;
+    }
 
-button:hover {
-  background: #ffa64d;
-}
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      animation: fadeInUp 1s ease;
+    }
 
-footer {
-  text-align: center;
-  padding: 40px 10px;
-  background: rgba(0, 0, 0, 0.9);
-}
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-footer img {
-  height: 70px;
-  margin-top: 15px;
-}
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff6600 0%, #ffb347 50%, #0096ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      text-shadow: 0 0 30px rgba(255, 102, 0, 0.3);
+      animation: glow 3s ease-in-out infinite;
+    }
 
-.social-links a {
-  color: #ff6600;
-  font-size: 1.3rem;
-  margin: 0 12px;
-  text-decoration: none;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
+    @keyframes glow {
+      0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 102, 0, 0.4)); }
+      50% { filter: drop-shadow(0 0 20px rgba(255, 102, 0, 0.6)); }
+    }
 
-.social-links a:hover {
-  color: #ffa64d;
-  transform: scale(1.1);
-}
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 400;
+      font-style: italic;
+      color: #ffb347;
+      margin-bottom: 50px;
+      text-shadow: 0 0 20px rgba(255, 179, 71, 0.3);
+    }
 
-.upi-section img {
-  width: 200px;
-  margin-top: 10px;
-  border-radius: 10px;
-}
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 50px;
+      max-width: 1200px;
+      width: 100%;
+    }
 
-@media (max-width: 768px) {
-  nav a {
-    margin: 0 10px;
-    font-size: 1rem;
-  }
-  h1 { font-size: 2rem; }
-  iframe { height: 220px; }
-}
-</style>
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 102, 0, 0.3);
+      transition: all 0.4s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-10px);
+      border-color: rgba(255, 102, 0, 0.8);
+      box-shadow: 0 20px 40px rgba(255, 102, 0, 0.3);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .gallery-item::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .gallery-item:hover::after {
+      opacity: 1;
+    }
+
+    /* Section Styling */
+    section {
+      padding: 100px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .section-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff6600 0%, #ffb347 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .section-content {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 50px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 102, 0, 0.2);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    p {
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: #e0e0e0;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    /* About Section */
+    #about {
+      background: linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #000000 100%);
+    }
+
+    /* Donate Section */
+    #donate {
+      background: linear-gradient(180deg, #000000 0%, #0f0500 50%, #000000 100%);
+    }
+
+    .donate-content {
+      text-align: center;
+    }
+
+    .qr-container {
+      margin: 40px 0;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      display: inline-block;
+      box-shadow: 0 15px 50px rgba(255, 102, 0, 0.4);
+    }
+
+    .qr-container img {
+      width: 250px;
+      height: 250px;
+      border-radius: 10px;
+    }
+
+    .qr-text {
+      color: #ff6600;
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-top: 15px;
+    }
+
+    .bank-details {
+      background: rgba(255, 102, 0, 0.1);
+      border: 1px solid rgba(255, 102, 0, 0.3);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px 0;
+      text-align: left;
+    }
+
+    .bank-details p {
+      margin: 10px 0;
+      font-size: 1.05rem;
+    }
+
+    .bank-details strong {
+      color: #ff6600;
+      font-weight: 600;
+    }
+
+    .donate-btn {
+      margin-top: 30px;
+      background: linear-gradient(135deg, #ff6600 0%, #ff8533 100%);
+      border: none;
+      padding: 18px 50px;
+      font-size: 1.3rem;
+      color: #000;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(255, 102, 0, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .donate-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(255, 102, 0, 0.6);
+      background: linear-gradient(135deg, #ff8533 0%, #ffb347 100%);
+    }
+
+    .donate-btn:active {
+      transform: translateY(-2px);
+    }
+
+    /* Contact Section */
+    #contact {
+      background: linear-gradient(180deg, #000000 0%, #000a0f 50%, #000000 100%);
+    }
+
+    .contact-info {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .contact-item {
+      background: rgba(0, 150, 255, 0.05);
+      border: 1px solid rgba(0, 150, 255, 0.3);
+      border-radius: 15px;
+      padding: 25px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-item:hover {
+      background: rgba(0, 150, 255, 0.1);
+      border-color: rgba(0, 150, 255, 0.5);
+      transform: translateX(10px);
+    }
+
+    .contact-item strong {
+      color: #0096ff;
+      font-size: 1.1rem;
+    }
+
+    /* Social Section */
+    #social {
+      background: linear-gradient(180deg, #000000 0%, #0a0000 50%, #000000 100%);
+    }
+
+    .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .social-link {
+      background: rgba(255, 102, 0, 0.05);
+      border: 1px solid rgba(255, 102, 0, 0.3);
+      border-radius: 15px;
+      padding: 25px 40px;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1.2rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .social-link:hover {
+      background: rgba(255, 102, 0, 0.15);
+      border-color: rgba(255, 102, 0, 0.6);
+      transform: translateX(10px);
+      box-shadow: 0 10px 30px rgba(255, 102, 0, 0.3);
+    }
+
+    .social-link span {
+      font-size: 2rem;
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(0, 0, 0, 0.95);
+      border-top: 1px solid rgba(255, 102, 0, 0.3);
+      padding: 50px 30px 30px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      margin-bottom: 30px;
+    }
+
+    .footer-logo img {
+      height: 80px;
+      filter: drop-shadow(0 0 15px rgba(255, 102, 0, 0.4));
+    }
+
+    .supporters {
+      color: #b0b0b0;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .supporters strong {
+      color: #ff6600;
+      display: block;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    /* Floating Action Button */
+    .fab-container {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .fab {
+      background: linear-gradient(135deg, #ff6600 0%, #ff8533 100%);
+      border: none;
+      border-radius: 50%;
+      width: 65px;
+      height: 65px;
+      font-size: 2rem;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(255, 102, 0, 0.5);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 8px 25px rgba(255, 102, 0, 0.5);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 12px 35px rgba(255, 102, 0, 0.7);
+      }
+    }
+
+    .fab:hover {
+      transform: scale(1.15) !important;
+      box-shadow: 0 15px 40px rgba(255, 102, 0, 0.8);
+    }
+
+    .fab:active {
+      transform: scale(1.05) !important;
+    }
+
+    .fab-label {
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: linear-gradient(135deg, #ff6600 0%, #ff8533 100%);
+      padding: 8px 16px;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(255, 102, 0, 0.4);
+    }
+
+    .top-btn {
+      background: rgba(0, 150, 255, 0.2);
+      border: 2px solid rgba(0, 150, 255, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 150, 255, 0.3);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0096ff;
+    }
+
+    .top-btn:hover {
+      background: rgba(0, 150, 255, 0.3);
+      border-color: rgba(0, 150, 255, 0.8);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 150, 255, 0.5);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+      }
+
+      .header-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      nav a {
+        font-size: 0.85rem;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .section-content {
+        padding: 30px 25px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .fab-container {
+        bottom: 20px;
+        right: 20px;
+      }
+
+      .fab {
+        width: 60px;
+        height: 60px;
+      }
+
+      .fab-label {
+        font-size: 0.75rem;
+        padding: 6px 12px;
+      }
+    }
+
+    /* Smooth scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+      }
+      40% {
+        transform: translateX(-50%) translateY(-10px);
+      }
+      60% {
+        transform: translateX(-50%) translateY(-5px);
+      }
+    }
+
+    .scroll-indicator span {
+      display: block;
+      width: 30px;
+      height: 50px;
+      border: 2px solid rgba(255, 102, 0, 0.5);
+      border-radius: 25px;
+      position: relative;
+    }
+
+    .scroll-indicator span::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      width: 6px;
+      height: 6px;
+      margin-left: -3px;
+      background: #ff6600;
+      border-radius: 50%;
+      animation: scroll 2s infinite;
+    }
+
+    @keyframes scroll {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <img src="logo2.png" alt="JAWS Logo">
-  <nav>
-    <a href="#about">About Us</a>
-    <a href="#mission">Be a Part</a>
-    <a href="#donate">Donate</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+  <header id="header">
+    <div class="header-container">
+      <div class="logo-container">
+        <img src="logo2.png" alt="JAWS Logo">
+        <span class="logo-text">JAWS Igatpuri</span>
+      </div>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#donate">Donate</a>
+        <a href="#contact">Contact</a>
+        <a href="#social">Follow Us</a>
+      </nav>
+    </div>
+  </header>
 
-<section class="background" style="background-image: url('background1.jpg');">
-  <h1>Jeevashrey Animal Welfare Shelter (JAWS Igatpuri)</h1>
-  <h2><em>Serving Voiceless Forever</em></h2>
-  <div class="gallery">
-    <img src="Beforeafter1.jpg" alt="Rescue 1">
-    <img src="beforeafter2.jpg" alt="Rescue 2">
-    <img src="beforeafter3.jpg" alt="Rescue 3">
-    <img src="beforeafter4.jpg" alt="Rescue 4">
+  <section id="home">
+    <div class="hero-content">
+      <h1>Jeevashrey Animal Welfare Shelter</h1>
+      <h2>Serving Voiceless Forever 🐾</h2>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="Beforeafter1.jpg" alt="Rescue Transformation 1">
+        </div>
+        <div class="gallery-item">
+          <img src="beforeafter2.jpg" alt="Rescue Transformation 2">
+        </div>
+        <div class="gallery-item">
+          <img src="beforeafter3.jpg" alt="Rescue Transformation 3">
+        </div>
+        <div class="gallery-item">
+          <img src="beforeafter4.jpg" alt="Rescue Transformation 4">
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span></span>
+    </div>
+  </section>
+
+  <section id="about">
+    <h3 class="section-title">About Us</h3>
+    <div class="section-content">
+      <p>Established in 2002 by Miss Sakshi Dube with a vision to provide a haven for stray animals suffering on the streets. We provide 24/7 Emergency Rescue services to stray animals in need across Igatpuri, Ghoti & Kasara.</p>
+      <p>We also conduct sterilization (castration) drives and provide free Anti-Rabies Vaccinations. Our mission is to create a compassionate society that protects, loves, and heals all living beings.</p>
+      <p>Every year, we rescue hundreds of injured, abandoned, and sick animals, giving them a second chance at life. Our dedicated team works tirelessly to ensure that no animal suffers alone.</p>
+    </div>
+  </section>
+
+  <section id="donate">
+    <h3 class="section-title">Be a Part of This Mission</h3>
+    <div class="section-content donate-content">
+      <p>Jeevashrey (JAWS Igatpuri) runs purely on public support. Your donations help provide food, medical treatment, and shelter to hundreds of voiceless beings every year.</p>
+
+      <div class="qr-container">
+        <img src="upi.png" alt="UPI QR Code">
+        <div class="qr-text">Scan to Pay on UPI 🐾</div>
+      </div>
+
+      <div class="bank-details">
+        <p><strong>BANK NAME:</strong> STATE BANK OF INDIA</p>
+        <p><strong>ACCOUNT NAME:</strong> JEEVASHREY FOUNDATION NASHIK</p>
+        <p><strong>ACCOUNT TYPE:</strong> CURRENT ACCOUNT</p>
+        <p><strong>ACCOUNT NO:</strong> 42517333544</p>
+        <p><strong>IFSC CODE:</strong> SBIN0017464</p>
+        <p><strong>UPI ID:</strong> jeevashrey@sbi</p>
+      </div>
+
+      <button class="donate-btn" onclick="window.location.href='#donate'">Support Our Cause</button>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h3 class="section-title">Contact Us</h3>
+    <div class="section-content">
+      <div class="contact-info">
+        <div class="contact-item">
+          <p><strong>📧 Email</strong></p>
+          <p>jawsigatpuri@gmail.com<br>jeevashrey@gmail.com</p>
+        </div>
+        <div class="contact-item">
+          <p><strong>📱 WhatsApp</strong></p>
+          <p>+91 8275354264<br>+91 9637354264<br>+91 9637093667</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="social">
+    <h3 class="section-title">Follow Us & Stay Connected</h3>
+    <div class="section-content">
+      <div class="social-links">
+        <a href="https://youtu.be/BvAadEjB6AA?si=E5xt35iEDIDeDMcW" target="_blank" class="social-link">
+          <span>🎥</span>
+          <div>YouTube: Watch Our Rescue Stories</div>
+        </a>
+        <a href="https://www.instagram.com/jaws_igatpuri/" target="_blank" class="social-link">
+          <span>📸</span>
+          <div>Instagram: @jaws_igatpuri</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">
+      <img src="logo2.png" alt="JAWS Logo">
+    </div>
+    <div class="supporters">
+      <strong>Special Thanks to Our Noble Supporters</strong>
+      GoMap, Talent India, ARHAA Foods, Mahindra Home Finance, Igatpuri Nagarparishad, Mission Rabies, WVS India, and Many More Active & Anonymous Donors.
+    </div>
+    <p style="margin-top: 30px; color: #666; font-size: 0.9rem;">
+      © 2025 JAWS Igatpuri. All rights reserved.
+    </p>
+  </footer>
+
+  <div class="fab-container">
+    <div class="fab-label">Donate Now</div>
+    <button class="fab" onclick="window.location.href='#donate'">🐾</button>
+    <button class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
   </div>
-</section>
 
-<section id="about" class="background" style="background-image: url('background1.jpg');">
-  <h2>About Us</h2>
-  <p>
-    Established in 2002 by Miss Sakshi Dube with a vision to provide a haven for stray animals suffering on the streets, we offer 24/7 emergency rescue services across Igatpuri, Ghoti, and Kasara. 
-    We also run sterilization programs and provide free Anti-Rabies vaccinations for stray dogs.
-  </p>
-</section>
+  <script>
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
 
-<section id="mission" class="background" style="background-image: url('background2.jpg');">
-  <h2>Be a Part of This Mission</h2>
-  <p>
-    JAWS Igatpuri runs purely on public support. Your donations help provide food, treatment, and shelter to hundreds of voiceless beings every year.
-  </p>
-  <button onclick="document.getElementById('donate').scrollIntoView({behavior:'smooth'})">Donate Now</button>
-</section>
+    // Smooth reveal on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
 
-<section id="donate" class="background" style="background-image: url('background2.jpg');">
-  <h2>Donate Now</h2>
-  <p>
-    <strong>Bank Name:</strong> State Bank of India<br>
-    <strong>Account Name:</strong> Jeevashrey Foundation Nashik<br>
-    <strong>Account Type:</strong> Current Account<br>
-    <strong>Account No:</strong> 42517333544<br>
-    <strong>IFSC Code:</strong> SBIN0017464<br>
-    <strong>UPI ID:</strong> jeevashrey@sbi
-  </p>
-  <div class="upi-section">
-    <p style="color:#ff6600;font-size:1.2rem;margin-bottom:8px;">🐾 Scan to Pay on UPI 🐾</p>
-    <img src="upi.png" alt="UPI QR">
-  </div>
-</section>
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
 
-<section id="videos" class="background" style="background-image: url('background2.jpg');">
-  <h2>Our Work in Action</h2>
-  <div class="video-section">
-    <iframe src="https://www.youtube.com/embed/BvAadEjB6AA?si=in-XsOgv6AcSHOW2" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/vXH0L-jl9uY?si=dqYHW4v-hnSKRci1" allowfullscreen></iframe>
-  </div>
-</section>
-
-<section id="contact" class="background" style="background-image: url('background2.jpg');">
-  <h2>Contact Us</h2>
-  <p>
-    Jeevashrey Animal Welfare Shelter (JAWS Igatpuri)<br>
-    Next to Dhammagiri International,<br>
-    Igatpuri, Maharashtra, India - 422403<br><br>
-    📧 jawsigatpuri@gmail.com | jeevashrey@gmail.com<br>
-    📞 WhatsApp: +91 8275354264 / 9637354264 / 963709367
-  </p>
-  <div class="social-links">
-    <h3 style="color:#ff6600;font-size:1.5rem;">Follow Us</h3>
-    <p><a href="https://www.youtube.com/@jaws_igatpuri" target="_blank">YouTube</a> |
-       <a href="https://www.instagram.com/jaws_igatpuri/" target="_blank">Instagram</a></p>
-  </div>
-</section>
-
-<footer>
-  <p>Special Thanks To Our Noble Supporters: GoMap, Talent India, ARHAA Foods, Mahindra Home Finance, Igatpuri Nagarparishad, Mission Rabies, WVS India & Many More.</p>
-  <img src="logo2.png" alt="JAWS Footer Logo">
-  <p style="color:#888;">© 2025 Jeevashrey Animal Welfare Shelter (JAWS Igatpuri)</p>
-</footer>
+    document.querySelectorAll('section').forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(30px)';
+      section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(section);
+    });
+  </script>
 
 </body>
 </html>
